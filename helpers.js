@@ -27,6 +27,12 @@ async function createUser(user) {
   return result.insertedId;
 }
 
+async function getUserById(id) {
+  const db = await connection();
+  const user = await db.collection("users").findOne({ _id: id });
+  return user;
+}
+
 async function seedInitialUser() {
   console.log("Seeding initial user...");
   const hashedPassword = await bcrypt.hash("password", SALT_ROUNDS);
@@ -50,4 +56,5 @@ async function seedInitialUser() {
 module.exports = {
   connect,
   getUsers,
+  getUserById,
 };
