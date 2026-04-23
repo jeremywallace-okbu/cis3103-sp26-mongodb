@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const bcrypt = require("bcrypt");
 const connection = require("./db");
 
@@ -28,8 +29,10 @@ async function createUser(user) {
 }
 
 async function getUserById(id) {
+  console.log("Getting user by ID:", id);
   const db = await connection();
-  const user = await db.collection("users").findOne({ _id: id });
+  const user = await db.collection("users").findOne({ _id: new ObjectId(id) });
+  console.log("User found:", user);
   return user;
 }
 
